@@ -4,7 +4,7 @@ resource "aws_lambda_function" "lambda_function" {
   s3_key    = "${var.bucket_key}"
 
   function_name = "${var.function_name}"
-  role          = "${aws_iam_role.role.arn}"
+  role          = "${aws_iam_role.lambda_role.arn}"
   handler       = "${var.handler}"
   runtime       = "${var.runtime}"
 
@@ -72,7 +72,7 @@ EOF
 }
 
 resource "aws_iam_role_policy_attachment" "lambda_logs" {
-  role = "${aws_iam_role.role.name}"
+  role = "${aws_iam_role.lambda_role.name}"
   policy_arn = "${aws_iam_policy.lambda_logging.arn}"
 }
 
