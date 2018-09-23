@@ -15,8 +15,7 @@ resource "aws_lambda_function" "lambda_function" {
 
 # IAM
 resource "aws_iam_role" "lambda_role" {
-  depends_on = ["aws_lambda_function.lambda_function"]
-  name       = "${aws_lambda_function.lambda_function.function_name}_lambda_iam_role"
+  name       = "lambda_iam_role"
 
   assume_role_policy = <<POLICY
 {
