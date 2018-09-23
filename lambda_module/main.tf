@@ -15,7 +15,7 @@ resource "aws_lambda_function" "lambda_function" {
 
 # IAM
 resource "aws_iam_role" "lambda_role" {
-  name       = "${var.function_name}_lambda_iam_role"
+  name       = "${var.function_name}"
 
   assume_role_policy = <<POLICY
 {
@@ -48,7 +48,7 @@ resource "aws_lambda_permission" "lambda_permission" {
 
 
 resource "aws_iam_policy" "lambda_logging" {
-  name = "${var.function_name}_lambda_logging"
+  name = "${var.function_name}"
   path = "/"
   description = "IAM policy for logging from a lambda"
 
