@@ -1,2 +1,3 @@
 # lambda-module
-Abstract lambda infrastructure module
+
+Abstract lambda infrastructure module.
