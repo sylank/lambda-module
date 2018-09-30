@@ -1,3 +1,3 @@
 # lambda-module
 
-Abstract lambda infrastructure module.
+Abstract terraform lambda module.
