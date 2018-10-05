@@ -54,7 +54,7 @@ resource "aws_lambda_permission" "lambda_permission" {
 }
 
 resource "aws_iam_policy" "lambda_logging" {
-  name        = "${var.function_name}"
+  name        = "log_${var.function_name}"
   path        = "/"
   description = "IAM policy for logging from a lambda"
 
@@ -81,7 +81,7 @@ resource "aws_iam_role_policy_attachment" "lambda_logs" {
 }
 
 resource "aws_iam_policy" "lambda_sns" {
-  name        = "${var.function_name}"
+  name        = "sns_${var.function_name}"
   path        = "/"
   description = "IAM policy for post to sns topic"
 
@@ -92,7 +92,8 @@ resource "aws_iam_policy" "lambda_sns" {
     "Statement" :[
         {
             "Effect":"Allow",           
-            "Action":["sns:Publish",
+            "Action":[
+                      "sns:Publish",
                       "sns:CreateTopic"
                      ],
             "Resource":"arn:aws:sns:eu-central-1:*:*"
