@@ -21,7 +21,7 @@ resource "aws_lambda_function" "lambda_function" {
 
 # IAM
 resource "aws_iam_role" "lambda_role" {
-  name       = "${var.function_name}"
+  name = "${var.function_name}"
 
   assume_role_policy = <<POLICY
 {
@@ -53,10 +53,9 @@ resource "aws_lambda_permission" "lambda_permission" {
   source_arn = "${var.api_gateway_arn}/*/*"
 }
 
-
 resource "aws_iam_policy" "lambda_logging" {
-  name = "${var.function_name}"
-  path = "/"
+  name        = "${var.function_name}"
+  path        = "/"
   description = "IAM policy for logging from a lambda"
 
   policy = <<EOF
@@ -76,10 +75,35 @@ resource "aws_iam_policy" "lambda_logging" {
 }
 EOF
 }
-
 resource "aws_iam_role_policy_attachment" "lambda_logs" {
-  role = "${aws_iam_role.lambda_role.name}"
+  role       = "${aws_iam_role.lambda_role.name}"
   policy_arn = "${aws_iam_policy.lambda_logging.arn}"
+}
+
+resource "aws_iam_policy" "lambda_sns" {
+  name        = "${var.function_name}"
+  path        = "/"
+  description = "IAM policy for post to sns topic"
+
+  policy = <<EOF
+{
+    "Version":"2012-10-17",
+    "Id":"AWSAccountTopicAccess",
+    "Statement" :[
+        {
+            "Effect":"Allow",           
+            "Action":["sns:Publish",
+                      "sns:CreateTopic"
+                     ],
+            "Resource":"arn:aws:sns:eu-central-1:*:*"
+        }
+    ]
+}
+EOF
+}
+resource "aws_iam_role_policy_attachment" "lambda_sns" {
+  role       = "${aws_iam_role.lambda_role.name}"
+  policy_arn = "${aws_iam_policy.lambda_sns.arn}"
 }
 
 resource "aws_cloudwatch_log_group" "lambda_log_group" {
