@@ -21,3 +21,7 @@ variable "api_gateway_arn" {}
 variable "retention_in_days" {
   default = 7
 }
+
+variable "environment_name" {
+  default = ""
+}

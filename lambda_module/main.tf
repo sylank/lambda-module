@@ -11,6 +11,12 @@ resource "aws_lambda_function" "lambda_function" {
   source_code_hash = "${var.file_hash}"
   timeout          = "${var.timeout}"
   memory_size      = "${var.memory}"
+
+  environment {
+    variables = {
+      environment_name = "${var.environment_name}"
+    }
+  }
 }
 
 # IAM
