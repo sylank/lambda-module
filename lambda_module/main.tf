@@ -8,7 +8,7 @@ resource "aws_lambda_function" "lambda_function" {
   handler       = "${var.handler}"
   runtime       = "${var.runtime}"
 
-  source_code_hash = "${data.aws_s3_bucket_object.jar_hash.body}"
+  source_code_hash = "${var.file_hash}"
   timeout          = "${var.timeout}"
   memory_size      = "${var.memory}"
 
@@ -17,11 +17,6 @@ resource "aws_lambda_function" "lambda_function" {
       environment_name = "${var.environment_name}"
     }
   }
-}
-
-data "aws_s3_bucket_object" "jar_hash" {
-  bucket = "artifactory.levendulabalatonmaria.info"
-  key    = "reservationservice/0.3.0/reservationservice-0.3.0.hash"
 }
 
 # IAM
