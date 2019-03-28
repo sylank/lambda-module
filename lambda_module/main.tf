@@ -108,6 +108,36 @@ resource "aws_iam_role_policy_attachment" "lambda_sns" {
   policy_arn = "${aws_iam_policy.lambda_sns.arn}"
 }
 
+resource "aws_iam_policy" "dynamo" {
+  name        = "dynamo_${var.function_name}"
+  path        = "/"
+  description = "IAM policy for dynamo query"
+
+  policy = <<EOF
+{
+    "Version":"2012-10-17",
+    "Id":"AWSAccountTopicAccess",
+    "Statement" :[
+        {
+            "Effect":"Allow",           
+            "Action":[
+                      "dynamodb:DeleteItem",
+                      "dynamodb:GetItem",
+                      "dynamodb:PutItem",
+                      "dynamodb:Scan",
+                      "dynamodb:UpdateItem"
+                     ],
+            "Resource":"arn:aws:dynamodb:eu-central-1:*:table/*"
+        }
+    ]
+}
+EOF
+}
+resource "aws_iam_role_policy_attachment" "dynamo" {
+  role       = "${aws_iam_role.dynamo.name}"
+  policy_arn = "${aws_iam_policy.dynamo.arn}"
+}
+
 resource "aws_cloudwatch_log_group" "lambda_log_group" {
   name = "/aws/lambda/${var.function_name}"
 
