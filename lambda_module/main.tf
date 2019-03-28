@@ -33,7 +33,8 @@ resource "aws_iam_role" "lambda_role" {
         "Service": [
           "lambda.amazonaws.com",
           "apigateway.amazonaws.com",
-          "sns.amazonaws.com"
+          "sns.amazonaws.com",
+          "dynamodb.amazonaws.com"
         ]
       },
       "Effect": "Allow",
