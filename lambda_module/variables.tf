@@ -25,3 +25,7 @@ variable "retention_in_days" {
 variable "environment_name" {
   default = ""
 }
+
+variable "sns_topic_arn" {
+  default = ""
+}

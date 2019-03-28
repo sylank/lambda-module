@@ -15,6 +15,7 @@ resource "aws_lambda_function" "lambda_function" {
   environment {
     variables = {
       environment_name = "${var.environment_name}"
+      EMAIL_SNS_TOPIC_ARN = "${var.sns_topic_arn}"
     }
   }
 }
