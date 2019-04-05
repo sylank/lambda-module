@@ -126,7 +126,8 @@ resource "aws_iam_policy" "dynamo" {
                       "dynamodb:GetItem",
                       "dynamodb:PutItem",
                       "dynamodb:Scan",
-                      "dynamodb:UpdateItem"
+                      "dynamodb:UpdateItem",
+                      "dynamodb:Query"
                      ],
             "Resource":"arn:aws:dynamodb:eu-central-1:*:table/*"
         }
