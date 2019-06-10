@@ -29,3 +29,7 @@ variable "environment_name" {
 variable "sns_topic_arn" {
   default = ""
 }
+
+variable "transactional_email_queue_name" {
+  default = ""
+}
