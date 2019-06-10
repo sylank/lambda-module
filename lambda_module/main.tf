@@ -35,6 +35,7 @@ resource "aws_iam_role" "lambda_role" {
           "lambda.amazonaws.com",
           "apigateway.amazonaws.com",
           "sns.amazonaws.com",
+          "sqs.amazonaws.com",
           "dynamodb.amazonaws.com"
         ]
       },
@@ -53,6 +54,12 @@ resource "aws_lambda_permission" "lambda_permission" {
   principal     = "apigateway.amazonaws.com"
 
   source_arn = "${var.api_gateway_arn}/*/*"
+}
+
+resource "aws_lambda_permission" "sqs_lambda_permission" {
+  action        = "lambda:InvokeFunction"
+  function_name = "${aws_lambda_function.lambda_function.function_name}"
+  principal     = "sqs.amazonaws.com"
 }
 
 resource "aws_iam_policy" "lambda_logging" {
@@ -107,6 +114,31 @@ EOF
 resource "aws_iam_role_policy_attachment" "lambda_sns" {
   role       = "${aws_iam_role.lambda_role.name}"
   policy_arn = "${aws_iam_policy.lambda_sns.arn}"
+}
+
+resource "aws_iam_policy" "lambda_sqs" {
+  name        = "sqs_${var.function_name}"
+  path        = "/"
+  description = "IAM policy for post to sqs queue"
+
+  policy = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Action": [
+                "sqs:*"
+            ],
+            "Effect": "Allow",
+            "Resource": "*"
+        }
+    ]
+}
+EOF
+}
+resource "aws_iam_role_policy_attachment" "lambda_sqs" {
+  role       = "${aws_iam_role.lambda_role.name}"
+  policy_arn = "${aws_iam_policy.lambda_sqs.arn}"
 }
 
 resource "aws_iam_policy" "dynamo" {
