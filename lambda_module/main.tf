@@ -164,7 +164,7 @@ resource "aws_iam_policy" "dynamo" {
                       "dynamodb:DescribeStream",
                       "dynamodb:GetRecords",
                       "dynamodb:GetShardIterator",
-                      "dynamodb:ListStreams",
+                      "dynamodb:ListStreams"
                      ],
             "Resource":"arn:aws:dynamodb:eu-central-1:*:table/*"
         }
