@@ -160,7 +160,11 @@ resource "aws_iam_policy" "dynamo" {
                       "dynamodb:PutItem",
                       "dynamodb:Scan",
                       "dynamodb:UpdateItem",
-                      "dynamodb:Query"
+                      "dynamodb:Query",
+                      "dynamodb:DescribeStream",
+                      "dynamodb:GetRecords",
+                      "dynamodb:GetShardIterator",
+                      "dynamodb:ListStreams",
                      ],
             "Resource":"arn:aws:dynamodb:eu-central-1:*:table/*"
         }
