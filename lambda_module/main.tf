@@ -12,7 +12,7 @@ resource "aws_lambda_function" "lambda_function" {
   timeout          = "${var.timeout}"
   memory_size      = "${var.memory}"
 
-  reserved_concurrent_executions = 2
+  reserved_concurrent_executions = "2"
 
   environment {
     variables = {
