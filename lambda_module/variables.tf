@@ -33,3 +33,11 @@ variable "sns_topic_arn" {
 variable "transactional_email_queue_name" {
   default = ""
 }
+
+variable "apartment_prefix" {
+  default = ""
+}
+
+variable "apartment_name" {
+  default = ""
+}

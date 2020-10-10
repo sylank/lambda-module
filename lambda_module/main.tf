@@ -19,6 +19,8 @@ resource "aws_lambda_function" "lambda_function" {
       environment_name = "${var.environment_name}"
       EMAIL_SNS_TOPIC_ARN = "${var.sns_topic_arn}"
       TRANSACTIONAL_EMAIL_QUEUE_NAME = "${var.transactional_email_queue_name}"
+      APARTMENT_PREFIX = "${var.apartment_prefix}"
+      APARTMENT_NAME = "${var.apartment_name}"
     }
   }
 }
